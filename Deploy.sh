@@ -1,23 +1,17 @@
 #!/bin/bash
 
-# 1. Validate argument count
-if [ $# -ne 5 ]; then
-    echo "Usage: $0 <user> <APIKey> <ID> <reponame> <publicip>"
-    exit 1
-fi
+# 1. Ask the user for details one by one
+echo "=== Maven & Artifactory Setup ==="
+read -p "Enter User: " user
+read -sp "Enter API Key: " APIKey
+echo "" # Newline after hidden API Key prompt
+read -p "Enter ID: " ID
+read -p "Enter Repository Name: " reponame
+read -p "Enter Public IP: " publicip
+echo "---------------------------------"
 
-# 2. Assign positional arguments to variables
-user="$1"
-APIKey="$2"
-ID="$3"
-reponame="$4"
-publicip="$5"
-
-# 3. Update pom.xml safely
+# 2. Update pom.xml safely
 cd ~/tomcat10-jakartaee9/ || exit 1
-
-# Strip any pre-existing distributionManagement block to prevent XML parsing errors
-sed -i '/<distributionManagement>/,/<\/distributionManagement>/d' pom.xml
 
 BLOCK="<distributionManagement>
     <snapshotRepository>
