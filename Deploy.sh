@@ -21,10 +21,10 @@ BLOCK="<distributionManagement>
     </snapshotRepository>
   </distributionManagement>"
 
-# Insert BLOCK directly before </project> (the last line)
+# Insert BLOCK right before </project> tag
 sed -i "/<\/project>/i ${BLOCK//$'\n'/\\n}" pom.xml
 
-# 3. Overwrite ~/.m2/settings.xml
+# 4. Overwrite ~/.m2/settings.xml directly
 cat <<EOF > ~/.m2/settings.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
@@ -42,7 +42,7 @@ EOF
 
 echo "Configuration applied successfully!"
 
-# 4. Execute build & test deployment success
+# 5. Execute build & verify deployment
 echo "Starting Maven build and deployment..."
 mvn clean deploy
 

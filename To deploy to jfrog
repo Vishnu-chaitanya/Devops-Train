@@ -42,7 +42,7 @@ EOF
 
 echo "Configuration applied successfully!"
 
-# 4. Execute build & test deployment success
+# 5. Execute build & verify deployment
 echo "Starting Maven build and deployment..."
 mvn clean deploy
 
