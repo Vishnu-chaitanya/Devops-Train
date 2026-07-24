@@ -1,19 +1,16 @@
 #!/bin/bash
 
-# 1. Validate argument count
-if [ $# -ne 5 ]; then
-    echo "Usage: $0 <user> <APIKey> <ID> <reponame> <publicip>"
-    exit 1
-fi
+# 1. Ask the user for details one by one
+echo "=== Maven & Artifactory Setup ==="
+read -p "Enter User: " user
+read -sp "Enter API Key: " APIKey
+echo "" # Newline after hidden API Key prompt
+read -p "Enter ID: " ID
+read -p "Enter Repository Name: " reponame
+read -p "Enter Public IP: " publicip
+echo "---------------------------------"
 
-# 2. Assign positional arguments to variables
-user="$1"
-APIKey="$2"
-ID="$3"
-reponame="$4"
-publicip="$5"
-
-# 3. Update pom.xml safely
+# 2. Update pom.xml safely
 cd ~/tomcat10-jakartaee9/ || exit 1
 
 BLOCK="<distributionManagement>
@@ -27,7 +24,7 @@ BLOCK="<distributionManagement>
 # Insert BLOCK directly before </project> (the last line)
 sed -i "/<\/project>/i ${BLOCK//$'\n'/\\n}" pom.xml
 
-# 4. Overwrite ~/.m2/settings.xml
+# 3. Overwrite ~/.m2/settings.xml
 cat <<EOF > ~/.m2/settings.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
@@ -45,7 +42,7 @@ EOF
 
 echo "Configuration applied successfully!"
 
-# 5. Execute build & test deployment success
+# 4. Execute build & test deployment success
 echo "Starting Maven build and deployment..."
 mvn clean deploy
 
