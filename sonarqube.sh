@@ -6,7 +6,7 @@ cd ~
 
 # 1. Update and install dependencies
 sudo apt update -y
-sudo apt install unzip openjdk-17-jdk -y
+sudo apt install unzip -y
 
 # 2. Download directly to sonarqube.zip (using a clean URL)
 wget -O sonarqube.zip "https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.4.1.88267.zip"
