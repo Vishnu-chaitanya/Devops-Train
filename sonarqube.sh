@@ -18,3 +18,4 @@ mv sonarqube-10.4.1.88267 sonarqube
 # 4. Navigate to the correct architecture directory and start
 cd ~/sonarqube/bin/linux-x86-64
 ./sonar.sh start
+echo "runs on port 9000 by default"
